@@ -110,8 +110,8 @@ class OcppMisc(str, Enum):
     tech_info = "techInfo"
 
     # for use with Smart Charging
-    current = "Current"
-    power = "Power"
+    current = "A"
+    power = "W"
 
 
 class ConfigurationKey(str, Enum):

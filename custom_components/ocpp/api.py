@@ -569,7 +569,7 @@ class ChargePoint(cp):
         """Get supported features."""
         req = call.GetConfiguration(key=[ckey.supported_feature_profiles.value])
         resp = await self.call(req)
-        feature_list = (resp.configuration_key[0][om.value.value]).split(",")
+        feature_list = [""]
         if feature_list[0] == "":
             _LOGGER.warning("No feature profiles detected, defaulting to Core")
             await self.notify_ha("No feature profiles detected, defaulting to Core")
@@ -664,7 +664,8 @@ class ChargePoint(cp):
                 )
                 return False
 
-        if prof.SMART in self._attr_supported_features:
+        if True:
+            await self.clear_profile()
             resp = await self.get_configuration(
                 ckey.charging_schedule_allowed_charging_rate_unit.value
             )
@@ -679,10 +680,10 @@ class ChargePoint(cp):
             else:
                 lim = limit_watts
                 units = ChargingRateUnitType.watts.value
-            resp = await self.get_configuration(
-                ckey.charge_profile_max_stack_level.value
-            )
-            stack_level = int(resp)
+            # resp = await self.get_configuration(
+            #     ckey.charge_profile_max_stack_level.value
+            # )
+            stack_level = int(100000000)
             req = call.SetChargingProfile(
                 connector_id=conn_id,
                 cs_charging_profiles={

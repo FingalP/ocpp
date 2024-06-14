@@ -125,7 +125,7 @@ class OcppNumber(RestoreNumber, NumberEntity):
         num_value = float(value)
         if self.central_system.get_available(
             self.cp_id
-        ) and Profiles.SMART & self.central_system.get_supported_features(self.cp_id):
+        ): # and Profiles.SMART & self.central_system.get_supported_features(self.cp_id):
             resp = await self.central_system.set_max_charge_rate_amps(
                 self.cp_id, num_value
             )
